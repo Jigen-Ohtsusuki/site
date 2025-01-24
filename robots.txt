@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://cinemascope-temp.netlify.app/sitemap.xml
