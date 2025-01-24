@@ -388,9 +388,6 @@ body {
 .movies-container {
 
   display: flex;
-
-  
-
   gap: 1.5rem;
 
   overflow-x: scroll;
@@ -1176,7 +1173,34 @@ body {
   display: flex;
   justify-content: space-between;
 }
+  
+  .poster {
+    position: relative;
+    display: inline-block;
+    overflow: hidden
+  }
+  
+  .poster img {
 
+  width: auto;
+
+  height: 50%;
+
+  border-radius: 10px;
+    
+}
+
+  
+
+.movie-details {
+  position: relative;
+
+  display: inline-block;
+  overflow: hidden;
+}
+
+  
+}
 .related-articles h2 {
 
 padding-left: 15px;
