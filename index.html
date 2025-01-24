@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CinemaScope Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">CinemaScope</div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search movies...">
+        </div>
+    </header>
+    <div class="Main-film">
+        <!-- Background image with overlay -->
+        <img src="res\\LYF-Poster-15-SOCIAL-MEDIA.jpg" alt="LYF" class="LYF">
+        <div class="overlay"></div>
+      
+        <!-- Content overlay: logo on the right, details on the left -->
+        <div class="content-overlay">
+          <!-- Logo on the right -->
+          <img src="res\\logo.png" alt="Logo" class="logoM">
+          <!-- Movie details on the left -->
+          <div class="details-text">
+            <p class="status">Movie Release Status: <span class="not-released">Not Released</span></p>
+            <p class="status">Trailer Release Status: <span class="released">Released</span></p>
+            <a href="lyf.html" class="movie-btn">Go to Movie Page</a>
+          </div>
+      
+
+        </div>
+      </div>
+      
+      
+    
+    <div id="movieSections" class="movie-sections">
+        <div id="tollywood" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Tollywood Movies</h2>
+                <button class="view-all-btn" onclick="openFullSection('tollywood')">View All</button>
+            </div>
+            <div class="movies-container"></div>
+            <div class="loading"></div>
+        </div>
+        <div id="indian" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Indian Movies</h2>
+                <button class="view-all-btn" onclick="openFullSection('indian')">View All</button>
+            </div>
+            <div class="movies-container"></div>
+            <div class="loading"></div>
+        </div>
+        <div id="latest" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Latest Movies</h2>
+                <button class="view-all-btn" onclick="openFullSection('latest')">View All</button>
+            </div>
+            <div class="movies-container"></div>
+            <div class="loading"></div>
+        </div>
+        <div id="bollywood" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Bollywood Movies</h2>
+                <button class="view-all-btn" onclick="openFullSection('bollywood')">View All</button>
+            </div>
+            <div class="movies-container"></div>
+            <div class="loading"></div>
+        </div>
+        <div id="hollywood" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Hollywood Movies</h2>
+                <button class="view-all-btn" onclick="openFullSection('hollywood')">View All</button>
+            </div>
+            <div class="movies-container"></div>
+            <div class="loading"></div>
+        </div>
+    </div>
+
+    <div id="fullSectionModal" class="full-section-modal">
+        <span class="close-btn" onclick="closeFullSection()">&times;</span>
+        <div class="modal-content">
+            <h2 id="fullSectionTitle"></h2>
+            <div id="fullSectionMovies" class="full-movies-grid"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CinemaScope Pro-page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="movieDetails" class="movie-details">
+        <div class="poster">
+            <img id="moviePoster" src="" alt="Movie Poster">
+        </div>
+        <div class="movie-info">
+            <h2 id="movieTitle"></h2>
+            <p><strong>Release Date:</strong> <span id="movieReleaseDate"></span></p>
+            <p><strong>Rating:</strong> <span id="movieRating"></span></p>
+            <p><strong>Summary:</strong> <span id="movieSummary"></span></p>
+        </div>
+    </div>
+    
+    <div class="trailer">
+        <h3>Trailer</h3>
+        <div id="movieTrailer"></div>
+    </div>
+
+    <div class="photos">
+        <h3>Photos</h3>
+        <div id="moviePhotos"></div>
+    </div>
+
+    <script>
+        const API_BASE = "https://api.themoviedb.org/3/";
+        const API_KEY = "1a7d1a54d8c72f1a04ba28076baeb854";
+
+        // Get the movie ID from the URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = urlParams.get('id');
+
+        async function fetchMovieDetails() {
+            const url = `${API_BASE}movie/${movieId}?api_key=${API_KEY}&language=en-US`;
+            try {
+                const response = await fetch(url);
+                const movie = await response.json();
+
+                // Set the movie details on the page
+                document.getElementById('movieTitle').textContent = movie.title;
+                document.getElementById('movieReleaseDate').textContent = movie.release_date;
+                document.getElementById('movieRating').textContent = (movie.vote_average / 2).toFixed(1);
+                document.getElementById('movieSummary').textContent = movie.overview;
+                document.getElementById('moviePoster').src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
+                // Fetch the trailer
+                const trailerUrl = `${API_BASE}movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`;
+                const trailerResponse = await fetch(trailerUrl);
+                const trailerData = await trailerResponse.json();
+                const trailerKey = trailerData.results.find(trailer => trailer.type === 'Trailer')?.key;
+                if (trailerKey) {
+                    document.getElementById('movieTrailer').innerHTML = `
+                        <iframe src="https://www.youtube.com/embed/${trailerKey}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    `;
+                } else {
+                    document.getElementById('movieTrailer').innerHTML = `<p>No trailer available.</p>`;
+                }
+
+                // Fetch photos
+                const photosUrl = `${API_BASE}movie/${movieId}/images?api_key=${API_KEY}`;
+                const photosResponse = await fetch(photosUrl);
+                const photosData = await photosResponse.json();
+                const photos = photosData.backdrops.slice(0, 5); // Show only 5 photos
+                const photosContainer = document.getElementById('moviePhotos');
+                photos.forEach(photo => {
+                    const img = document.createElement('img');
+                    img.src = `https://image.tmdb.org/t/p/w500${photo.file_path}`;
+                    photosContainer.appendChild(img);
+                });
+            } catch (error) {
+                console.error('Error fetching movie details:', error);
+            }
+        }
+
+        // Fetch the movie details when the page loads
+        document.addEventListener('DOMContentLoaded', fetchMovieDetails);
+    </script>
+</body>
+</html>
